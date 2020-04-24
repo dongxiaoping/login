@@ -60,8 +60,9 @@
             if(isRight){
                 postRegister (baseImgString, $ ('#nick_id').val (), $ ('#phone_id').val (), $ ('#password_id').val (),
                     function (flag, data) {
+                    alert(data)
                     if(flag){
-                        window.location.href = data.data.gameUrl+'?userId='+data.data.id
+                      //  window.location.href = data.data.gameUrl+'?userId='+data.data.id
                     }else{
                         alert('注册失败');
                     }
