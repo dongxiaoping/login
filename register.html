@@ -24,7 +24,7 @@
 <div class="login_div" style="height: 1.5rem;">
     <span class="login_ltext">头像</span>
     <div id="box" style="border:1px solid red;height: 1.2rem;width: 1.2rem;">
-        <img id="user_icon_id" src="" style="width: 100%;height: 100%;">
+        <img id="user_icon_id" src="">
     </div>
     <input style="border:1px solid yellow;margin-bottom: -0.8rem;margin-left: 0.5rem;" type="file" id="single"/>
 </div>
@@ -51,39 +51,32 @@
 
 <script>
     var baseImgString = null;
-    // var postUrl = 'http://www.toplaygame.cn/phpserver/public/index.php/race/test/test'
-
     $ (function () {
         $ ('.register_action').click (function () {
-            var isRight = checkInData(baseImgString, $ ('#nick_id').val (),$ ('#phone_id').val (),
+            var isRight = checkInData (baseImgString, $ ('#nick_id').val (), $ ('#phone_id').val (),
                 $ ('#password_id').val ())
-            if(isRight){
+            if (isRight) {
                 postRegister (baseImgString, $ ('#nick_id').val (), $ ('#phone_id').val (), $ ('#password_id').val (),
                     function (flag, data) {
-                    if(flag){
-                      //  window.location.href = data.data.gameUrl+'?userId='+data.data.id
-                    }else{
-                        alert('注册失败');
-                    }
-                    console.log(data)
+                        if (flag) {
+                            window.location.href = data.data.gameUrl + '?userId=' + data.data.id
+                        } else {
+                            alert ('注册失败');
+                        }
+                        console.log (data)
                     })
-            }else{
-                alert('数据不对');
+            } else {
+                alert ('数据不对');
             }
         })
 
         $ ('#single').on ('change', function (e) {
             new html5ImgCompress (e.target.files[0], {
                 before: function (file) {
-                    if(judgeClient() == 'IOS'){
-                        baseImgString = file;
-                        boxShow (file)
-                    }
                     console.log ('单张: 压缩前...');
                 },
                 done: function (file, base64) {
-                    console.log ('单张: 压缩成功...');
-                    baseImgString = base64;
+                    baseImgString = base64
                     boxShow (base64)
                 },
                 fail: function (file) {
@@ -93,7 +86,7 @@
                     console.log ('单张: 压缩完成...');
                 },
                 notSupport: function (file) {
-                    console.log  ('浏览器不支持！');
+                    console.log ('浏览器不支持！');
                 }
             });
         });
