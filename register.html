@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="stylesheet" href="css/apple.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/html5ImgCompress.min.js"></script>
+    <script src="js/util.js"></script>
+    <script src="js/registerUtil.js"></script>
+</head>
+<body>
+<div class="header gradient_bg">
+    <div class="header_logo">
+        <a onclick="window.history.back()" class="header_back"> &lt </a>
+        <span>注册</span>
+    </div>
+</div>
+
+<!--注册-->
+<div class="login_div" style="height: 1.5rem;">
+    <span class="login_ltext">头像</span>
+    <div id="box" style="border:1px solid red;height: 1.2rem;width: 1.2rem;">
+        <img id="user_icon_id" src="" style="width: 100%;height: 100%;">
+    </div>
+    <input style="border:1px solid yellow;margin-bottom: -0.8rem;margin-left: 0.5rem;" type="file" id="single"/>
+</div>
+<div class="login_div">
+    <span class="login_ltext">昵称</span>
+    <input id="nick_id" class="login_input" type="tel" maxlength="11" placeholder="输入昵称"/>
+</div>
+<div class="login_div">
+    <span class="login_ltext">手机号</span>
+    <input id="phone_id" class="login_input" type="tel" maxlength="11" placeholder="输入手机号"/>
+</div>
+<div class="login_div">
+    <span class="login_ltext">密码</span>
+    <input id="password_id" class="login_input" maxlength="11" placeholder="设置您的登录密码"/>
+</div>
+<div class="register_action gradient_bg">
+    <span>注册</span>
+</div>
+<div class="register_div">
+    <a href="login.html" class="register_text">
+        已有账号，请登录
+    </a>
+</div>
+
+<script>
+    var baseImgString = null;
+    // var postUrl = 'http://www.toplaygame.cn/phpserver/public/index.php/race/test/test'
+
+    $ (function () {
+        $ ('.register_action').click (function () {
+            var isRight = checkInData(baseImgString, $ ('#nick_id').val (),$ ('#phone_id').val (),
+                $ ('#password_id').val ())
+            if(isRight){
+                postRegister (baseImgString, $ ('#nick_id').val (), $ ('#phone_id').val (), $ ('#password_id').val (),
+                    function (flag, data) {
+                    if(flag){
+                        window.location.href = data.data.gameUrl+'?userId='+data.data.id
+                    }else{
+                        alert('注册失败');
+                    }
+                    console.log(data)
+                    })
+            }else{
+                alert('数据不对');
+            }
+        })
+
+        $ ('#single').on ('change', function (e) {
+            new html5ImgCompress (e.target.files[0], {
+                before: function (file) {
+                    console.log ('单张: 压缩前...');
+                },
+                done: function (file, base64) {
+                    console.log ('单张: 压缩成功...');
+                    baseImgString = base64;
+                    boxShow (base64)
+                },
+                fail: function (file) {
+                    console.log ('单张: 压缩失败...');
+                },
+                complete: function (file) {
+                    console.log ('单张: 压缩完成...');
+                },
+                notSupport: function (file) {
+                    console.log  ('浏览器不支持！');
+                }
+            });
+        });
+    })
+</script>
+</body>
+</html>
