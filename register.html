@@ -60,7 +60,6 @@
             if(isRight){
                 postRegister (baseImgString, $ ('#nick_id').val (), $ ('#phone_id').val (), $ ('#password_id').val (),
                     function (flag, data) {
-                    alert(JSON.stringify(data))
                     if(flag){
                       //  window.location.href = data.data.gameUrl+'?userId='+data.data.id
                     }else{
@@ -76,6 +75,10 @@
         $ ('#single').on ('change', function (e) {
             new html5ImgCompress (e.target.files[0], {
                 before: function (file) {
+                    if(judgeClient() == 'IOS'){
+                        baseImgString = file;
+                        boxShow (file)
+                    }
                     console.log ('单张: 压缩前...');
                 },
                 done: function (file, base64) {

@@ -8,7 +8,6 @@
 // | Description: 
 // +----------------------------------------------------------------------
 function postRegister (imgString, nick, phone, password, backFuc) {
-    alert(JSON.stringify(CREATE_ACCOUNT_REQ))
     $.ajax ({
         type: "POST",
         url: CREATE_ACCOUNT_REQ,
