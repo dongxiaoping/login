@@ -60,7 +60,8 @@
                 postRegister (baseImgString, $ ('#nick_id').val (), $ ('#phone_id').val (), $ ('#password_id').val (),
                     function (flag, data) {
                         if (flag) {
-                            window.location.href = data.data.gameUrl + '?userId=' + data.data.id
+                            webCookie.setItem ('userId', data.data.id)
+                            window.location.href = data.data.gameUrl
                         } else {
                             alert ('注册失败');
                         }
