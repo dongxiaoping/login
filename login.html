@@ -54,7 +54,7 @@
             <span class="login_ltext">密码</span>
             <input id="password_id" class="login_input" type="password" maxlength="32" placeholder="输入密码"/>
         </div>
-        <div class="register_action gradient_bg">
+        <div id="login_in_id" class="register_action gradient_bg">
             <span>登录</span>
         </div>
     </li>
@@ -66,7 +66,7 @@
 
 <script>
     $ (function () {
-        $ ('.register_action').touched (function () {
+        $ ('#login_in_id').click(function () {
             var isRight = checkInData ($ ('#phone_id').val (), $ ('#password_id').val ())
             if (isRight) {
                 loginReq ($ ('#phone_id').val (), $ ('#password_id').val (),
