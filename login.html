@@ -13,8 +13,10 @@
     <meta name="format-detection" content="telephone=no"/>
     <link rel="stylesheet" href="css/apple.css">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/toastr.min.css">
     <script src="js/jquery.min.js"></script>
     <script src="js/util.js"></script>
+    <script src="js/toastr.min.js"></script>
     <script src="js/loginUtil.js"></script>
 </head>
 <body>
@@ -58,7 +60,7 @@
         </div>
         <div class="login_div">
             <span class="login_ltext">密码</span>
-            <input id="password_id" class="login_input" type="password" maxlength="32" placeholder="输入密码"/>
+            <input id="password_id" class="login_input" type="password" maxlength="18" placeholder="输入密码"/>
         </div>
         <div id="login_in_id" class="register_action gradient_bg">
             <span>登录</span>
@@ -72,22 +74,22 @@
 
 <script>
     $ (function () {
-        $ ('#login_in_id').click(function () {
-            var isRight = checkInData ($ ('#phone_id').val (), $ ('#password_id').val ())
+        toastrSet ()
+        $ ('#login_in_id').click (function () {
+            var phone = clearBlank ($ ('#phone_id').val ())
+            var password = clearBlank ($ ('#password_id').val ())
+            var isRight = checkInData (phone, password)
             if (isRight) {
-                loginReq ($ ('#phone_id').val (), $ ('#password_id').val (),
+                loginReq (phone, password,
                     function (flag, data) {
                         if (flag) {
                             webCookie.setItem ('userId', data.data.id)
                             window.location.href = data.data.gameUrl
                         } else {
-                            alert ('登录失败');
+                            toastr.error (data.message)
                         }
-                        console.log (data)
                     })
 
-            } else {
-                console.log ('参数错误')
             }
         })
 

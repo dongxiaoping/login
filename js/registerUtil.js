@@ -31,6 +31,22 @@ function postRegister (imgString, nick, phone, password, backFuc) {
 }
 
 function checkInData (iconString, nick, phone, password) {
+    if (iconString.indexOf ('data:image') != 0) {
+        toastr.error ('请上传正确的图像！')
+        return false
+    }
+    if (clearBlank (nick) == "") {
+        toastr.error ('昵称不能为空！')
+        return false
+    }
+    if (!isPhone (clearBlank (phone))) {
+        toastr.error ('电话号码错误！')
+        return false
+    }
+    if (clearBlank (password) == "") {
+        toastr.error ('密码不能为空')
+        return false
+    }
     return true;
 }
 
