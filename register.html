@@ -31,7 +31,7 @@
 
 <!--注册-->
 <div class="login_div" style="height: 1.5rem;">
-<!--    <span class="login_ltext">头像</span>-->
+    <!--    <span class="login_ltext">头像</span>-->
     <div id="box" class="user_icon_part">
         <img class="user_icon_part" id="user_icon_id" src="./img/user_icon.png">
     </div>
@@ -63,16 +63,22 @@
     $ (function () {
         toastrSet ()
         $ ('.register_action').click (function () {
-            var nick = clearBlank($ ('#nick_id').val ())
-            var phone = clearBlank($ ('#phone_id').val ())
-            var password = clearBlank($ ('#password_id').val ())
+            var nick = clearBlank ($ ('#nick_id').val ())
+            var phone = clearBlank ($ ('#phone_id').val ())
+            var password = clearBlank ($ ('#password_id').val ())
             var isRight = checkInData (baseImgString, nick, phone, password)
             if (isRight) {
                 postRegister (baseImgString, nick, phone, password,
                     function (flag, data) {
                         if (flag) {
                             webCookie.setItem ('userId', data.data.id)
-                            window.location.href = data.data.gameUrl
+                            let roomId = webCookie.getItem ('roomId')
+                            if (roomId != null) {
+                                webCookie.removeItem('roomId')
+                                window.location.href = data.data.gameUrl + '?roomId=' + roomId
+                            } else {
+                                window.location.href = data.data.gameUrl
+                            }
                         } else {
                             toastr.error (data.message)
                         }
