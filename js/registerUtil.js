@@ -17,15 +17,12 @@ function postRegister (imgString, nick, phone, password, backFuc) {
             var return_info = JSON.parse (data);
             if (return_info.status) {
                 backFuc (1, return_info)
-                console.log ("上传成功");
             } else {
-                backFuc (1, return_info)
-                console.log ("上传失败");
+                backFuc (0, return_info)
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
-            backFuc (0, '')
-            console.log ("上传失败，请检查网络后重试");
+            backFuc (0, {"status":0,"message":"网络异常！","data":""})
         }
     });
 }
