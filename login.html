@@ -69,12 +69,15 @@
 </ul>
 
 <div class="register_div">
-    <a class="register_text" href="register.html">注册账号</a></div>
+    <a id="to_register_id" class="register_text">注册账号</a></div>
 </div>
 
 <script>
     $ (function () {
         toastrSet ()
+        $ ('#to_register_id').click (function () {
+            window.location.replace('register.html')
+        })
         $ ('#login_in_id').click (function () {
             var phone = clearBlank ($ ('#phone_id').val ())
             var password = clearBlank ($ ('#password_id').val ())

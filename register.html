@@ -24,7 +24,7 @@
 <body>
 <div class="header gradient_bg">
     <div class="header_logo">
-        <a onclick="window.history.back()" class="header_back"> &lt </a>
+        <a id="back_to_login_id" class="header_back"> &lt </a>
         <span>注册</span>
     </div>
 </div>
@@ -53,7 +53,7 @@
     <span>注册</span>
 </div>
 <div class="register_div">
-    <a href="login.html" class="register_text">
+    <a id="to_login_id" class="register_text">
         已有账号，请登录
     </a>
 </div>
@@ -62,6 +62,12 @@
     var baseImgString = "";
     $ (function () {
         toastrSet ()
+        $ ('#back_to_login_id').click (function () {
+            window.location.replace('login.html')
+        })
+        $ ('#to_login_id').click (function () {
+            window.location.replace('login.html')
+        })
         $ ('.register_action').click (function () {
             var nick = clearBlank ($ ('#nick_id').val ())
             var phone = clearBlank ($ ('#phone_id').val ())
