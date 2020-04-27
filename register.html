@@ -75,9 +75,9 @@
                             let roomId = webCookie.getItem ('roomId')
                             if (roomId != null) {
                                 webCookie.removeItem('roomId')
-                                window.location.replace(data.data.gameUrl + '?roomId=' + roomId)
+                              //  window.location.replace(data.data.gameUrl + '?roomId=' + roomId)
                             } else {
-                                window.location.replace(data.data.gameUrl)
+                             //   window.location.replace(data.data.gameUrl)
                             }
                         } else {
                             toastr.error (data.message)
