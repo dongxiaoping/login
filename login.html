@@ -24,7 +24,7 @@
 <div class="header gradient_bg">
     <div class="header_logo">
         <!--			<a onclick="window.history.back()" class="header_back"> &lt </a>-->
-        <span>悦动公司人员管理登录</span>
+        <span>滚筒子登录</span>
     </div>
 </div>
 
@@ -84,7 +84,7 @@
                     function (flag, data) {
                         if (flag) {
                             webCookie.setItem ('userId', data.data.id)
-                            //window.location.replace(data.data.gameUrl)
+                            window.location.replace(data.data.gameUrl)
                         } else {
                             toastr.error (data.message)
                         }
