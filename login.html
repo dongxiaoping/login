@@ -84,7 +84,7 @@
                     function (flag, data) {
                         if (flag) {
                             webCookie.setItem ('userId', data.data.id)
-                            window.location.href = data.data.gameUrl
+                            window.location.replace(data.data.gameUrl)
                         } else {
                             toastr.error (data.message)
                         }
