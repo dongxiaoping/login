@@ -122,3 +122,11 @@ function isPhone(phone){
 function clearBlank (stringInfo) {
     return stringInfo.replace(/(^\s*)/g, "");
 }
+
+//截取url中指定的传参
+function getUrlParam(name) {
+    let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    let r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]);
+    return null;
+}
