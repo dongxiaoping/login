@@ -14,8 +14,9 @@
 </button>
 </body>
 <script>
-    var content = getUrlParam("copy")
+    var content = webCookie.getItem("share")
     document.getElementById("shareClipboardContentId").innerText = content
     new ClipboardJS('#shareClipboardButtonId');
+    webCookie.removeItem("share")
 </script>
 </html>
