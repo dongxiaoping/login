@@ -6,16 +6,17 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body style="width: 100%;height: 100%;">
-<textarea  id="shareClipboardContentId" style="width: 100%;height: auto;font-size: 22px;line-height: 26px;min-height: 6rem">
+<body style="width: 100%;height: 100%; background-image: url(blue_bg.png)">
+<textarea   id="shareClipboardContentId" style=" width: 98%;height: auto;font-size: 1.4rem;line-height: 26px;min-height: 11rem;">
  </textarea>
-<button style="width: 8rem;height: 3rem;float: right;margin-right: 3rem;margin-top: 3rem" id="shareClipboardButtonId" class="btn" data-clipboard-action="copy" data-clipboard-target="#shareClipboardContentId">
-复制
+<button style="width: 10rem;height: 3rem;float: right;margin-right: 3rem;margin-top: 3rem;font-size: 1.5rem" id="shareClipboardButtonId" class="btn">
+复制分享
 </button>
 </body>
 <script>
     var content = webCookie.getItem("share")
     document.getElementById("shareClipboardContentId").innerText = content
+    document.getElementById("shareClipboardButtonId").setAttribute("data-clipboard-text", content);
     new ClipboardJS('#shareClipboardButtonId');
     webCookie.removeItem("share")
 </script>
