@@ -87,7 +87,13 @@
                     function (flag, data) {
                         if (flag) {
                             webCookie.setItem ('userId', data.data.id)
-                            window.location.replace(data.data.gameUrl)
+                            let roomId = webCookie.getItem ('roomId')
+                            if (roomId != null) {
+                                webCookie.removeItem('roomId')
+                                window.location.replace(data.data.gameUrl + '?roomId=' + roomId)
+                            } else {
+                                window.location.replace(data.data.gameUrl)
+                            }
                         } else {
                             toastr.error (data.message)
                         }
