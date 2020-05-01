@@ -1,19 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="../css/toastr.min.css">
     <script type="text/javascript" src="clipboard.min.js"></script>
     <script type="text/javascript" src="../js/util.js"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/toastr.min.js"></script>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body style="width: 100%;height: 100%;background-image: url(blue_bg.png)">
 <textarea   id="shareClipboardContentId" style="border: 0px solid white;border-bottom: 1px solid white; background-image: url(blue_bg.png);color:white;width: 98%;height: auto;font-size: 1.4rem;line-height: 26px;min-height: 11rem;">
  </textarea>
-<button style="background:url('button_bg.png');color:white;width: 10rem;height: 3rem;float: left;margin-left: 3rem;margin-top: 3rem;font-size: 1.5rem" id="shareClipboardButtonId" class="btn">
+<button onclick="shareButtonClick()" style="background:url('button_bg.png');color:white;width: 10rem;height: 3rem;float: left;margin-left: 3rem;margin-top: 3rem;font-size: 1.5rem" id="shareClipboardButtonId" class="btn">
 复制分享
 </button>
 </body>
 <script>
+    toastrSet()
+    function shareButtonClick(){
+        toastr.info("复制成功！")
+    }
     var content = webCookie.getItem("share")
     document.getElementById("shareClipboardContentId").innerText = content
     document.getElementById("shareClipboardButtonId").setAttribute("data-clipboard-text", content);
