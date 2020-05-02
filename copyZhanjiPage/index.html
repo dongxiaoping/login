@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript" src="../js/clipboard.min.js"></script>
+    <script type="text/javascript" src="../js/util.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body  style="width: 98%;height: 100%;overflow:hidden;background-image: url(blue_bg.png)">
+<button onclick="shareButtonClick()" style="background:url('button_bg.png');overflow: hidden; color:white;width: 10rem;height: 3rem;float: left;margin-left: 0rem;font-size: 1.5rem" id="shareClipboardButtonId" class="btn">
+    分享战绩
+</button>
+</body>
+<script>
+    function shareButtonClick () {
+        document.getElementById("shareClipboardButtonId").innerText = "复制成功"
+    }
+    var content = webCookie.getItem("zhanji")
+    document.getElementById("shareClipboardButtonId").setAttribute("data-clipboard-text", content);
+    new ClipboardJS('#shareClipboardButtonId');
+    webCookie.removeItem("zhanji")
+</script>
+</html>
