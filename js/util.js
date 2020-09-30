@@ -100,7 +100,7 @@ var webCookie = {
         try{
             window.localStorage.clear();
         }catch (e) {
-            JxLog.e([], "common/LocalStorage/clear",["localStorage.clear函数异常", e.toLocaleString ()]);
+
         }
     }
 };
