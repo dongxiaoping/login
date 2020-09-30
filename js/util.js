@@ -71,39 +71,39 @@ function toastrSet() {
 //expireTime参数为cookie的失效时间，单位为小时(默认有效期为30天)
 //应用退出不会删除，存储容量小，每次网络请求会附带上，不要轻易使用
 var webCookie = {
-    setItem: function (key,value) {
-        try{
-            value = JSON.stringify(value);
-            window.localStorage.setItem(key,value);
-            return true;
-        }catch(e){
-            window.localStorage.setItem(key,value);
-            return true;
-        }
+    setItem: function (name, value, expireHour) {
+        var Days = 6 * 30 * 24 * 60 * 60 * 1000;
+        var exp = new Date();
+        exp.setTime(exp.getTime() + Days);
+        document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString() + "; path=/";
     },
 
-    getItem: function (key) {
-        let value = window.localStorage.getItem(key);
-        try {
-            return JSON.parse(value);
-        }catch(e){
+    //读取cookies
+    getItem: function (name) {
+        var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+        if (arr = document.cookie.match(reg)) {
+            var value = unescape(arr[2]);
+            this.setItem(name, value);
             return value;
+        } else {
+            return null;
         }
     },
 
-    removeItem: function (key) {
-        window.localStorage.removeItem(key);
-        return true;
-    },
-
-    clear: function () {
-        try{
-            window.localStorage.clear();
-        }catch (e) {
-
+    //删除cookies
+    removeItem: function (name,path="/") {
+        let exp = new Date();
+        let exp_time = exp.getTime();
+        let new_time = exp_time - 1;
+        exp.setTime(new_time);
+        let exp_string = exp.toGMTString();
+        let arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+        if (arr = document.cookie.match(reg)) {
+            let value = unescape(arr[2]);
+            document.cookie = name + "=" + value + ";expires=" + exp_string+ "; path="+path;
         }
     }
-};
+}
 
 function isPhone(phone){
     if(!(/^1[3456789]\d{9}$/.test(phone))){
