@@ -74,16 +74,16 @@ var webCookie = {
     setItem: function (key,value) {
         try{
             value = JSON.stringify(value);
-            window.sessionStorage.setItem(key,value);
+            window.localStorage.setItem(key,value);
             return true;
         }catch(e){
-            window.sessionStorage.setItem(key,value);
+            window.localStorage.setItem(key,value);
             return true;
         }
     },
 
     getItem: function (key) {
-        let value = window.sessionStorage.getItem(key);
+        let value = window.localStorage.getItem(key);
         try {
             return JSON.parse(value);
         }catch(e){
@@ -92,15 +92,15 @@ var webCookie = {
     },
 
     removeItem: function (key) {
-        window.sessionStorage.removeItem(key);
+        window.localStorage.removeItem(key);
         return true;
     },
 
     clear: function () {
         try{
-            window.sessionStorage.clear();
+            window.localStorage.clear();
         }catch (e) {
-            JxLog.e([], "common/LocalStorage/clear",["sessionStorage.clear函数异常", e.toLocaleString ()]);
+            JxLog.e([], "common/LocalStorage/clear",["localStorage.clear函数异常", e.toLocaleString ()]);
         }
     }
 };
