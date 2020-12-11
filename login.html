@@ -84,7 +84,12 @@
                 loginReq (phone, password,
                     function (flag, data) {
                         if (flag) {
-                            webCookie.setItem ('userId', data.data.id)
+                            try{
+                                webCookie.setItem ('userId', data.data.id)
+                                localStorage.setItem('userId', data.data.id);
+                            }catch (e) {
+                                console.log("本地存储异常")
+                            }
                             let roomId = webCookie.getItem ('roomId')
                             if (roomId != null) {
                                 webCookie.removeItem('roomId')
