@@ -18,7 +18,8 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/html5ImgCompress.min.js"></script>
     <script src="js/toastr.min.js"></script>
-    <script src="js/util.js"></script>
+
+    <script src="js/util.js?a=445"></script>
     <script src="js/registerUtil.js?a=444"></script>
 </head>
 <body>
@@ -142,8 +143,6 @@
             var $code=$(this);
             if (validCode) {
                 validCode=false;
-                //发送请求
-                reqSms(phone)
                 var codeTimer=setInterval(function  () {
                     time--;
                     $code.html(time+"秒");
@@ -153,6 +152,8 @@
                         validCode=true;
                     }
                 },1000)
+                //发送请求
+                reqSms(phone)
             }
         })
     })
