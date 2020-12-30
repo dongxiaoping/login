@@ -20,7 +20,7 @@
     <script src="js/toastr.min.js"></script>
 
     <script src="js/util.js?a=445"></script>
-    <script src="js/registerUtil.js?a=94564"></script>
+    <script src="js/registerUtil.js?rand=5564"></script>
 </head>
 <body>
 <div class="header gradient_bg">
@@ -85,7 +85,27 @@
             var phone = clearBlank ($ ('#phone_id').val ())
             var codeId = clearBlank ($ ('#code_id').val ())
             var password = clearBlank ($ ('#password_id').val ())
-            var isRight = checkInData (baseImgString, nick, phone, password, codeId)
+
+            if (baseImgString.indexOf ('data:image') != 0) {
+                toastr.error ('请上传正确的图像！')
+                return false
+            }
+            if (clearBlank (nick) == "") {
+                toastr.error ('昵称不能为空！')
+                return false
+            }
+            if (!isPhone (clearBlank (phone))) {
+                toastr.error ('电话号码错误！')
+                return false
+            }
+            if (clearBlank (password) == "") {
+                toastr.error ('密码不能为空')
+                return false
+            }
+            if (clearBlank (codeId) == "") {
+                toastr.error ('验证码不能为空')
+                return false
+            }
             if (isRight) {
                 postRegister (baseImgString, nick, phone, password,codeId,
                     function (flag, data) {

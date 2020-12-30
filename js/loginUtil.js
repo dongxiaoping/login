@@ -7,19 +7,6 @@
 // +----------------------------------------------------------------------
 // | Description: 
 // +----------------------------------------------------------------------
-
-function checkInData (phone, password) {
-    if(!isPhone (clearBlank (phone))){
-        toastr.error ('电话号码错误！')
-        return false
-    }
-    if (clearBlank (password) == "") {
-        toastr.error ('密码不能为空')
-        return false
-    }
-    return true
-}
-
 function loginReq (phone, password, code, backFuc) {
     $.ajax ({
         type: "Get",
