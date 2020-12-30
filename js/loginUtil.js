@@ -20,10 +20,10 @@ function checkInData (phone, password) {
     return true
 }
 
-function loginReq (phone, password, backFuc) {
+function loginReq (phone, password, code, backFuc) {
     $.ajax ({
         type: "Get",
-        url: LOGIN_IN_REQ + "?phone=" + phone + "&password=" + password,
+        url: LOGIN_IN_REQ + "?phone=" + phone + "&password=" + password + "&code=" +code,
         cache: false,
         success: function (data) {
             var return_info = JSON.parse (data);

@@ -18,7 +18,8 @@
     <script src="js/toastr.min.js"></script>
 
     <script src="js/util.js?a=445"></script>
-    <script src="js/loginUtil.js?a=445"></script>
+    <script src="js/loginUtil.js?a=4445"></script>
+    <script src="js/registerUtil.js?a=94564"></script>
 </head>
 <body>
 <!--title-->
@@ -38,18 +39,18 @@
     <li>
         <div class="login_div">
             <span class="login_ltext">手机号</span>
-            <input class="login_input" type="tel" maxlength="11" placeholder="输入手机号"/>
+            <input  id="code_vaild_phone_id"  class="login_input" type="tel" maxlength="11" placeholder="输入手机号"/>
         </div>
         <div class="login_div">
             <span class="login_ltext">验证码</span>
             <div class="auth_div">
-                <input class="login_input auth_input" type="tel" maxlength="4" placeholder="输入验证码"/>
+                <input id="code_id" class="login_input auth_input" type="tel" maxlength="4" placeholder="输入验证码"/>
                 <div class="get_auth_code">
                     <span style="font-size: 0.30rem;color: white">获取验证码</span>
                 </div>
             </div>
         </div>
-        <div class="register_action">
+        <div id="code_login_in_id" class="register_action gradient_bg" style="width: 100%;margin-left: 0px;">
             <span>登录</span>
         </div>
     </li>
@@ -72,17 +73,55 @@
     <a id="to_register_id" class="register_text">注册账号</a></div>
 </div>
 <script>
+    var validCode=true;
     $ (function () {
         toastrSet ()
         $ ('#to_register_id').click (function () {
             window.location.replace('register.html')
         })
+
+
+        //验证码登录
+        $ ('#code_login_in_id').click (function () {
+            var phone = clearBlank ($ ('#code_vaild_phone_id').val ())
+            var code = clearBlank ($ ('#code_id').val ())
+            if (!isPhone (phone)) {
+                toastr.error ('电话号码错误！')
+                return false
+            }
+            if (code == "") {
+                toastr.error ('验证码不能为空')
+                return false
+            }
+            loginReq (phone, "",code,
+                function (flag, data) {
+                    if (flag) {
+                        try{
+                            webCookie.setItem ('userId', data.data.id)
+                            localStorage.setItem('userId', data.data.id);
+                        }catch (e) {
+                            console.log("本地存储异常")
+                        }
+                        let roomId = webCookie.getItem ('roomId')
+                        if (roomId != null) {
+                            webCookie.removeItem('roomId')
+                            window.location.replace(data.data.gameUrl + '?roomId=' + roomId)
+                        } else {
+                            window.location.replace(data.data.gameUrl)
+                        }
+                    } else {
+                        toastr.error (data.message)
+                    }
+                })
+        })
+
+        //密码登录
         $ ('#login_in_id').click (function () {
             var phone = clearBlank ($ ('#phone_id').val ())
             var password = clearBlank ($ ('#password_id').val ())
             var isRight = checkInData (phone, password)
             if (isRight) {
-                loginReq (phone, password,
+                loginReq (phone, password,'',
                     function (flag, data) {
                         if (flag) {
                             try{
@@ -114,6 +153,33 @@
             var i = $ (this).index ();
             $ (".login_show > li").eq (i).addClass ('cur').siblings ().removeClass ('cur');
         });
+
+
+        // 验证码倒计时
+        $(".get_auth_code").click (function  () {
+            var phone = clearBlank ($ ('#code_vaild_phone_id').val ())
+            if (!isPhone (clearBlank (phone))) {
+                toastr.error ('电话号码错误！')
+                return false
+            }
+
+            var time=60;
+            var $code=$(this);
+            if (validCode) {
+                validCode=false;
+                var codeTimer=setInterval(function  () {
+                    time--;
+                    $code.html(time+"秒");
+                    if (time==0) {
+                        clearInterval(codeTimer);
+                        $code.html("重新获取");
+                        validCode=true;
+                    }
+                },1000)
+                //发送请求
+                reqSms(phone)
+            }
+        })
     })
 </script>
 </body>
