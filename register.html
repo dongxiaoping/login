@@ -142,6 +142,8 @@
             var $code=$(this);
             if (validCode) {
                 validCode=false;
+                //发送请求
+                reqSms(phone)
                 var codeTimer=setInterval(function  () {
                     time--;
                     $code.html(time+"秒");
@@ -151,11 +153,6 @@
                         validCode=true;
                     }
                 },1000)
-
-                //发送请求
-                reqSms(phone,function () {
-
-                })
             }
         })
     })

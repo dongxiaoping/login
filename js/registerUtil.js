@@ -27,7 +27,7 @@ function postRegister (imgString, nick, phone, password, code, backFuc) {
     });
 }
 
-function reqSms (phone, backFuc) {
+function reqSms (phone) {
     alert('发送')
     $.ajax ({
         type: "GET",
@@ -40,7 +40,6 @@ function reqSms (phone, backFuc) {
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             alert('失败')
-            backFuc (0, {"status":0,"message":"网络异常！","data":""})
         }
     });
 }
