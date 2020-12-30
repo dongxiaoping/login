@@ -20,7 +20,7 @@
     <script src="js/toastr.min.js"></script>
 
     <script src="js/util.js?a=445"></script>
-    <script src="js/registerUtil.js?a=444564"></script>
+    <script src="js/registerUtil.js?a=94564"></script>
 </head>
 <body>
 <div class="header gradient_bg">
@@ -132,7 +132,6 @@
 
         // 验证码倒计时
         $(".get_auth_code").click (function  () {
-            alert(4)
             var phone = clearBlank ($ ('#phone_id').val ())
             if (!isPhone (clearBlank (phone))) {
                 toastr.error ('电话号码错误！')
