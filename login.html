@@ -39,7 +39,7 @@
     <li>
         <div class="login_div">
             <span class="login_ltext">手机号</span>
-            <input  id="code_vaild_phone_id"  class="login_input" type="tel" maxlength="11" placeholder="输入手机号"/>
+            <input id="code_vaild_phone_id" class="login_input" type="tel" maxlength="11" placeholder="输入手机号"/>
         </div>
         <div class="login_div">
             <span class="login_ltext">验证码</span>
@@ -73,11 +73,11 @@
     <a id="to_register_id" class="register_text">注册账号</a></div>
 </div>
 <script>
-    var validCode=true;
+    var validCode = true;
     $ (function () {
         toastrSet ()
         $ ('#to_register_id').click (function () {
-            window.location.replace('register.html')
+            window.location.replace ('register.html')
         })
 
 
@@ -93,21 +93,21 @@
                 toastr.error ('验证码不能为空')
                 return false
             }
-            loginReq (phone, "",code,
+            loginReq (phone, "", code,
                 function (flag, data) {
                     if (flag) {
-                        try{
+                        try {
                             webCookie.setItem ('userId', data.data.id)
-                            localStorage.setItem('userId', data.data.id);
-                        }catch (e) {
-                            console.log("本地存储异常")
+                            localStorage.setItem ('userId', data.data.id);
+                        } catch (e) {
+                            console.log ("本地存储异常")
                         }
                         let roomId = webCookie.getItem ('roomId')
                         if (roomId != null) {
-                            webCookie.removeItem('roomId')
-                            window.location.replace(data.data.gameUrl + '?roomId=' + roomId)
+                            webCookie.removeItem ('roomId')
+                            window.location.replace (data.data.gameUrl + '?roomId=' + roomId)
                         } else {
-                            window.location.replace(data.data.gameUrl)
+                            window.location.replace (data.data.gameUrl)
                         }
                     } else {
                         toastr.error (data.message)
@@ -119,7 +119,7 @@
         $ ('#login_in_id').click (function () {
             var phone = clearBlank ($ ('#phone_id').val ())
             var password = clearBlank ($ ('#password_id').val ())
-            if(!isPhone (clearBlank (phone))){
+            if (!isPhone (clearBlank (phone))) {
                 toastr.error ('电话号码错误！')
                 return false
             }
@@ -127,29 +127,26 @@
                 toastr.error ('密码不能为空')
                 return false
             }
-            if (isRight) {
-                loginReq (phone, password,'',
-                    function (flag, data) {
-                        if (flag) {
-                            try{
-                                webCookie.setItem ('userId', data.data.id)
-                                localStorage.setItem('userId', data.data.id);
-                            }catch (e) {
-                                console.log("本地存储异常")
-                            }
-                            let roomId = webCookie.getItem ('roomId')
-                            if (roomId != null) {
-                                webCookie.removeItem('roomId')
-                                window.location.replace(data.data.gameUrl + '?roomId=' + roomId)
-                            } else {
-                                window.location.replace(data.data.gameUrl)
-                            }
-                        } else {
-                            toastr.error (data.message)
+            loginReq (phone, password, '',
+                function (flag, data) {
+                    if (flag) {
+                        try {
+                            webCookie.setItem ('userId', data.data.id)
+                            localStorage.setItem ('userId', data.data.id);
+                        } catch (e) {
+                            console.log ("本地存储异常")
                         }
-                    })
-
-            }
+                        let roomId = webCookie.getItem ('roomId')
+                        if (roomId != null) {
+                            webCookie.removeItem ('roomId')
+                            window.location.replace (data.data.gameUrl + '?roomId=' + roomId)
+                        } else {
+                            window.location.replace (data.data.gameUrl)
+                        }
+                    } else {
+                        toastr.error (data.message)
+                    }
+                })
         })
 
         $ ('.login_tab li').click (function () {//切换登陆类型
@@ -163,28 +160,28 @@
 
 
         // 验证码倒计时
-        $(".get_auth_code").click (function  () {
+        $ (".get_auth_code").click (function () {
             var phone = clearBlank ($ ('#code_vaild_phone_id').val ())
             if (!isPhone (clearBlank (phone))) {
                 toastr.error ('电话号码错误！')
                 return false
             }
 
-            var time=60;
-            var $code=$(this);
+            var time = 60;
+            var $code = $ (this);
             if (validCode) {
-                validCode=false;
-                var codeTimer=setInterval(function  () {
+                validCode = false;
+                var codeTimer = setInterval (function () {
                     time--;
-                    $code.html(time+"秒");
-                    if (time==0) {
-                        clearInterval(codeTimer);
-                        $code.html("重新获取");
-                        validCode=true;
+                    $code.html (time + "秒");
+                    if (time == 0) {
+                        clearInterval (codeTimer);
+                        $code.html ("重新获取");
+                        validCode = true;
                     }
-                },1000)
+                }, 1000)
                 //发送请求
-                reqSms(phone)
+                reqSms (phone)
             }
         })
     })
