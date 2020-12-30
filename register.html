@@ -131,6 +131,7 @@
 
         // 验证码倒计时
         $(".get_auth_code").click (function  () {
+            alert(4)
             var phone = clearBlank ($ ('#phone_id').val ())
             if (!isPhone (clearBlank (phone))) {
                 toastr.error ('电话号码错误！')
@@ -152,7 +153,7 @@
                 },1000)
 
                 //发送请求
-                reqSms(phone,()=>{
+                reqSms(phone,function () {
 
                 })
             }
