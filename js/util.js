@@ -9,8 +9,10 @@
 // +----------------------------------------------------------------------
 // var CREATE_ACCOUNT_REQ = 'http://localhost/phpserver/public/index.php/race/user/create_account'
 // var LOGIN_IN_REQ = "http://localhost/phpserver/public/index.php/race/user/login_in"
-var CREATE_ACCOUNT_REQ = 'https://www.toplaygame.cn/phpserver/public/index.php/race/user/create_account'
-var LOGIN_IN_REQ = "https://www.toplaygame.cn/phpserver/public/index.php/race/user/login_in"
+var PREFIX_URL = 'https://www.toplaygame.cn/phpserver/public/index.php';
+var CREATE_ACCOUNT_REQ = PREFIX_URL + '/race/user/create_account';
+var LOGIN_IN_REQ = PREFIX_URL + "/race/user/login_in";
+var REQ_SMS = PREFIX_URL + "/race/user/req_sms";
 function judgeClient() {
     let u = navigator.userAgent;
     let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1;   //判断是否是 android终端

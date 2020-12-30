@@ -7,11 +7,11 @@
 // +----------------------------------------------------------------------
 // | Description: 
 // +----------------------------------------------------------------------
-function postRegister (imgString, nick, phone, password, backFuc) {
+function postRegister (imgString, nick, phone, password, code, backFuc) {
     $.ajax ({
         type: "POST",
         url: CREATE_ACCOUNT_REQ,
-        data: {file: imgString, nick: nick, phone: phone, password: password},
+        data: {file: imgString, nick: nick, phone: phone, password: password, code: code},
         cache: false,
         success: function (data) {
             var return_info = JSON.parse (data);
@@ -27,7 +27,21 @@ function postRegister (imgString, nick, phone, password, backFuc) {
     });
 }
 
-function checkInData (iconString, nick, phone, password) {
+function reqSms (phone, backFuc) {
+    $.ajax ({
+        type: "GET",
+        url: REQ_SMS,
+        data: {phone: phone},
+        cache: false,
+        success: function (data) {
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            backFuc (0, {"status":0,"message":"网络异常！","data":""})
+        }
+    });
+}
+
+function checkInData (iconString, nick, phone, password, code) {
     if (iconString.indexOf ('data:image') != 0) {
         toastr.error ('请上传正确的图像！')
         return false
@@ -42,6 +56,10 @@ function checkInData (iconString, nick, phone, password) {
     }
     if (clearBlank (password) == "") {
         toastr.error ('密码不能为空')
+        return false
+    }
+    if (clearBlank (code) == "") {
+        toastr.error ('验证码不能为空')
         return false
     }
     return true;
