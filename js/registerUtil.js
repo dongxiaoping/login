@@ -28,14 +28,18 @@ function postRegister (imgString, nick, phone, password, code, backFuc) {
 }
 
 function reqSms (phone, backFuc) {
+    alert('发送')
     $.ajax ({
         type: "GET",
         url: REQ_SMS,
         data: {phone: phone},
         cache: false,
         success: function (data) {
+            alert('成功')
+            alert(JSON.stringify(data))
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
+            alert('失败')
             backFuc (0, {"status":0,"message":"网络异常！","data":""})
         }
     });
