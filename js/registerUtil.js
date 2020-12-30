@@ -29,7 +29,7 @@ function postRegister (imgString, nick, phone, password, code, backFuc) {
 
 function reqSms (phone) {
     alert('发送')
-    $.ajax ({
+/*    $.ajax ({
         type: "GET",
         url: REQ_SMS,
         data: {phone: phone},
@@ -41,7 +41,7 @@ function reqSms (phone) {
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             alert('失败')
         }
-    });
+    });*/
 }
 
 function checkInData (iconString, nick, phone, password, code) {
