@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
     <meta name="format-detection" content="telephone=no"/>
     <link rel="stylesheet" href="css/apple.css">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/index.css?rand=34">
     <link rel="stylesheet" href="css/register.css?rand=345">
     <link rel="stylesheet" href="css/toastr.min.css">
     <script src="js/jquery.min.js"></script>
@@ -161,6 +161,7 @@
             var time = 60;
             var $code = $ (this);
             if (validCode) {
+                $code.html (time + "秒");
                 validCode = false;
                 var codeTimer = setInterval (function () {
                     time--;
